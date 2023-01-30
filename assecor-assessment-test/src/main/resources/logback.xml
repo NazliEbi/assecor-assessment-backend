@@ -1,0 +1,47 @@
+<!--Logback, config file for logging options, http://logback.qos.ch -->
+
+<configuration>
+
+	<appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+				%-20(%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level) [%thread] [%logger{36}:%M:%L] - %msg%n
+			</Pattern>
+        </layout>
+	</appender>
+
+	<!-- general file appender -->
+	<appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<file>../log/assecor_assessment_test.log</file>
+		<append>true</append>
+		
+	    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+	        <fileNamePattern>../log/assecor_assessment_test_%i.log</fileNamePattern>
+	        <minIndex>1</minIndex>
+	        <maxIndex>20</maxIndex>
+	    </rollingPolicy>		
+
+	    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+	        <maxFileSize>10 MB</maxFileSize>
+<!-- 	        <maxFileSize>1 KB</maxFileSize> -->
+	        
+	    </triggeringPolicy>	    
+
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>
+				%-20(%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level) [%thread] [%logger{36}:%M:%L] - %msg%n
+<!-- 				%-4relative [%thread] %-5level %logger{35} - %msg%n -->
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!-- log level for FileConsumer, ignore polling -->
+	<logger name="com.springboot.project.api" level="INFO" />
+	<root level="INFO">
+		<appender-ref ref="Console" />
+		<appender-ref ref="File" />
+	</root>
+
+</configuration>
